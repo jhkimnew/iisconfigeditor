@@ -1,0 +1,117 @@
+<h4>Basic mat-checkbox</h4>
+<mat-checkbox
+  #showDetails
+  [value]=""
+  [checked]="isChecked"
+  (change)="onChange($event)"
+  >Show details</mat-checkbox>
+  <div *ngIf="showDetails.checked">Some details</div>
+
+<h4>Basic mat-radio-group</h4>
+<mat-radio-group value="0">
+  <mat-radio-button value="1">Male</mat-radio-button>
+  <mat-radio-button value="0">Female</mat-radio-button>
+</mat-radio-group>
+
+<h4>Basic mat-select</h4>
+<mat-form-field>
+  <mat-select [(ngModel)]="color" placeholder="Favorite color">
+    <mat-option *ngFor="let color of colors" [value]="color.id">
+      {{color.name}}
+    </mat-option>
+  </mat-select>
+</mat-form-field>
+
+<h4>Basic matInput</h4>
+<form class="example-form">
+  <mat-form-field class="example-full-width">
+    <input 
+      
+      ngModel
+      #username="ngModel"
+      name="username"
+
+      required
+      matInput 
+      placeholder="user name" 
+      value="Jhkim">
+    <mat-hint>Type a unique name</mat-hint>
+    <span matPrefix>www.</span>
+    <span matSuffix>@domain.com</span>
+    <mat-error *ngIf="username.invalid && username.errors.required">
+      The username field is required.
+    </mat-error>
+  </mat-form-field>
+</form>
+
+<h4>Basic textareat</h4>
+<mat-form-field>
+  <textarea matInput mat-autosize rows="2"></textarea>
+</mat-form-field>
+
+<h4>Basic mat-datepicker</h4>
+<mat-form-field>
+  <input 
+    (focus)="picker.open()"
+    [min]="minDate"
+    [max]="maxDate"
+    matInput [matDatepicker]="picker" placeholder="Choose a date">
+  <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+  <mat-datepicker #picker touchUi="true"></mat-datepicker>
+</mat-form-field>
+
+<h4>Basic mat-icon</h4>
+<mat-icon>add_alert</mat-icon>
+
+<h4>Basic mat-button</h4>
+<button mat-button>Button1</button>
+<button color="primary" mat-raised-button>Primary</button>
+<button color="accent" mat-raised-button>Accept</button>
+<button color="warn" mat-raised-button>Warn</button>
+<button color="primary" mat-fab><mat-icon>check</mat-icon></button>
+
+<h4>Basic mat-chip</h4>
+<mat-chip-list>
+  <mat-chip color="accent" selected="true">One</mat-chip>
+  <mat-chip>Two</mat-chip>
+</mat-chip-list>
+
+<mat-chip-list>
+  <mat-chip  
+    *ngFor="let category of multiSelectCategories"
+    (click)="category.selected = !category.selected"
+    [selected]="category.selected"
+    >{{ category.name }}</mat-chip>
+</mat-chip-list>
+
+<mat-chip-list>
+  <mat-chip  
+    *ngFor="let category of categories"
+    (click)="selectCategory(category)"
+    [selected]="category.selected"
+    >{{ category.name }}</mat-chip>
+</mat-chip-list>
+
+<h4>Basic mat-progress-spinner</h4>
+<mat-progress-spinner mode="determinate" [value]="progress"></mat-progress-spinner>
+<mat-spinner *ngIf="isLoading" mode="indeterminate"></mat-spinner>
+
+<h4>Basic mat-tooltip</h4>
+<span 
+  matTooltip="this is for tooltip demo"
+  matTooltipPosition="right"
+  >Some text</span>
+
+<h4>Basic mat-tab</h4>
+<mat-tab-group>
+  <mat-tab label="First"> Content 1 </mat-tab>
+  <mat-tab label="Second"> Content 2 </mat-tab>
+  <mat-tab label="Third"> Content 3 </mat-tab>
+</mat-tab-group>
+
+<h4>Basic mat-dialog</h4>
+<button
+  (click)="openDialog()"
+  md-raised-button
+  >Open Dialog</button>
+
