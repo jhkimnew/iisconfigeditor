@@ -6,22 +6,26 @@ import { RouterModule } from '@angular/router';
 import { AppComponent } from './app.component';
 import { TestComponent } from './test/test.component';
 import { FormsModule } from '@angular/forms';
-
-
+import { HttpModule } from '@angular/http';
 
 import { TestMatDialogComponent } from './test-mat-dialog/test-mat-dialog.component';
-import { MatComponentsModule } from './mat-components.module';
+import { MatComponentsModule } from './common/mat-components.module';
+import { NotFoundComponent } from './not-found/not-found.component';
+import { HomeComponent } from './home/home.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     TestComponent,
-    TestMatDialogComponent
+    TestMatDialogComponent,
+    NotFoundComponent,
+    HomeComponent
   ],
   entryComponents: [
     TestMatDialogComponent
   ],
   imports: [
+    HttpModule,
     FormsModule,
     BrowserModule,
     BrowserAnimationsModule,
@@ -30,11 +34,19 @@ import { MatComponentsModule } from './mat-components.module';
       [
         {
           path: '',
-          component: AppComponent
+          component: HomeComponent
+        },
+        {
+          path: 'test',
+          component: TestComponent
+        },
+        {
+          path: '**',
+          component: NotFoundComponent
         }
       ]
-    )
-  ],
+      )
+    ],
   providers: [],
   bootstrap: [AppComponent]
 })

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { timer, Observable } from 'rxjs';
+import { timer } from 'rxjs';
 import { TestMatDialogComponent } from '../test-mat-dialog/test-mat-dialog.component';
 import { MatDialog } from '@angular/material';
 
@@ -8,6 +8,7 @@ import { MatDialog } from '@angular/material';
   templateUrl: './test.component.html',
   styleUrls: ['./test.component.css']
 })
+
 export class TestComponent implements OnInit {
   colors = [
     { id: 1, name: 'Red'},
