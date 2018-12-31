@@ -12,6 +12,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatTreeModule } from '@angular/material/tree';
 
 @NgModule({
   exports: [
@@ -28,6 +29,7 @@ import { MatDialogModule } from '@angular/material/dialog';
     MatTooltipModule,
     MatTabsModule,
     MatDialogModule,
+    MatTreeModule
   ]
 })
 export class MatComponentsModule { }

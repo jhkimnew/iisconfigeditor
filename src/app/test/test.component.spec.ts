@@ -1,5 +1,4 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { TestComponent } from './test.component';
 
 describe('TestComponent', () => {
@@ -19,4 +18,3 @@ describe('TestComponent', () => {
     fixture.detectChanges();
   });
 });
-

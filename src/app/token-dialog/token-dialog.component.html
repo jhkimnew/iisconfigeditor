@@ -1,0 +1,21 @@
+<h4>Log in</h4>
+<form class="token-form">
+  <mat-form-field class="token-full-width">
+    <input
+      type="password"
+      ngModel
+      #token="ngModel"
+      name="token"
+      required
+      matInput
+      placeholder="Token key"
+      [(ngModel)]="result">
+    <mat-hint>Type IIS Administration API token key</mat-hint>
+    <span matPrefix></span>
+    <span matSuffix></span>
+    <mat-error *ngIf="token.invalid && token.errors.required">
+      Token key is required.
+    </mat-error>
+  </mat-form-field>
+</form>
+<button mat-raised-button mat-dialog-close="{{result}}">Okay</button>

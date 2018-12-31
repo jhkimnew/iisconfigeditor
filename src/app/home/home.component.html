@@ -1,3 +1,11 @@
 <p>
-  home works!
+  IIS Configuration Editor
 </p>
+
+<button
+  [hidden]="tokenInitialized"
+  (click)="openDialog()"
+  md-raised-button
+  >Open Dialog</button>
+
+<app-tabview [hidden]="!tokenInitialized"></app-tabview>

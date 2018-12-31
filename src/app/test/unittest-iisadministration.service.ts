@@ -17,7 +17,7 @@ export class IISAdministrationApiService {
   };
 
   createToken() {
-    return this.http.post(this.url, this.requestToCreateToken).map(r => r.json());
+    return this.http.post(this.url + '/security/access-tokens', this.requestToCreateToken).map(r => r.json());
   }
 
   getTodos() {
