@@ -10,8 +10,7 @@ export class ServerComponent implements OnInit {
   configActive = false;
   features = [];
 
-  selectionChanged = true;
-  openedChangeStarted = false;
+  onOpenedChangeStarted = false;
 
   constructor(private data: DataService) { }
 
@@ -31,23 +30,12 @@ export class ServerComponent implements OnInit {
   }
 
   onOpenedChange() {
-    if (this.selectionChanged) {
-      this.selectionChanged = false;
-      return;
-    }
-    if (this.openedChangeStarted) {
-      this.openedChangeStarted = false;
+    if (this.onOpenedChangeStarted) {
+      this.onOpenedChangeStarted = false;
+    } else {
+      this.onOpenedChangeStarted = true;
       setTimeout(() => this.configActive = false, 0);
       setTimeout(() => this.configActive = true, 0);
-    } else {
-      this.openedChangeStarted = true;
     }
-  }
-
-  onSelectionChange() {
-    this.selectionChanged = true;
-    console.log('reset');
-    setTimeout(() => this.configActive = false, 0);
-    setTimeout(() => this.configActive = true, 0);
   }
 }

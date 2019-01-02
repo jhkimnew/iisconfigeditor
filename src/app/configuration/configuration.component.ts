@@ -42,7 +42,7 @@ export class ConfigurationComponent implements OnInit {
         if (value === null) {
           continue;
         }
-        if (item === 'scope' && value === '' ) {
+        if (item === 'scope' ) {
           continue;
         }
         if (item === 'id' ) {
@@ -53,7 +53,8 @@ export class ConfigurationComponent implements OnInit {
           continue;
         }
         if (typeof value === 'object') {
-          this.getChildProperties(item, value);
+          const parent = item;
+          this.getChildProperties(parent, value);
           continue;
         }
         this.properties.push({
@@ -84,11 +85,17 @@ export class ConfigurationComponent implements OnInit {
       if (links.hasOwnProperty(key)) {
         found = true;
         const name = (links[key].name) ? links[key].name : links[key].id;
-        const href = links[key]._links['self'].href;
-        this.items.push({
-          'name': name,
-          'href': href
-        });
+        if (name && links[key]._links.hasOwnProperty('self')) {
+          // get collection
+          const href = links[key]._links['self'].href;
+          this.items.push({
+            'name': name,
+            'href': href
+          });
+        } else {
+          // get collection properties
+          this.getChildProperties(parent + '[' + key + ']', links[key]);
+        }
       }
     }
     return found;
