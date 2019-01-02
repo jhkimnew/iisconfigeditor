@@ -1,26 +1,33 @@
 <h4 *ngIf="selectedItem">{{ breadCrumb }}</h4>
+
+<mat-accordion *ngIf="properties">
+  <mat-expansion-panel *ngFor="let property of properties">
+    <mat-expansion-panel-header>
+      <mat-panel-title>{{ property.name }}</mat-panel-title>
+      <mat-panel-description>{{ property.value }}</mat-panel-description>
+    </mat-expansion-panel-header>
+    <mat-form-field *ngIf="property.value !== '...'">
+      <input matInput placeholder="{{ property.value }}">
+    </mat-form-field>
+    <p>
+      <mat-accordion *ngIf="property.childProperites">
+        <mat-expansion-panel *ngFor="let childProperty of property.childProperites">
+            <mat-expansion-panel-header>
+              <mat-panel-title>{{ childProperty.name }}</mat-panel-title>
+              <mat-panel-description>{{ childProperty.value }}</mat-panel-description>
+            </mat-expansion-panel-header>
+            <mat-form-field>
+              <input matInput placeholder="{{ childProperty.value }}">
+            </mat-form-field>
+        </mat-expansion-panel>
+      </mat-accordion>
+    </p>
+  </mat-expansion-panel>  
+</mat-accordion>
+
 <mat-list *ngIf="items">
   <mat-list-item *ngFor="let item of items">
     {{ item.name }}
     <button (click)="onClickItem(item)" mat-button><mat-icon>arrow_forward_ios</mat-icon></button>
   </mat-list-item>
 </mat-list>
-
-<mat-accordion *ngIf="properties">
-  <mat-expansion-panel *ngFor="let property of properties">
-    <mat-expansion-panel-header>
-      <mat-panel-title>{{ property.name }}</mat-panel-title>
-      <mat-panel-description *ngIf="property.value">{{ property.value }}</mat-panel-description>
-    </mat-expansion-panel-header>
-    <mat-form-field>
-      <input matInput placeholder="{{ property.value }}">
-      <div>
-        <mat-list *ngIf="property.childProperites">
-          <mat-list-item *ngFor="let childProperty of property.childProperites">
-            {{ childProperty.name + ":" + childProperty.value }}
-          </mat-list-item>
-        </mat-list>
-      </div>
-    </mat-form-field>
-  </mat-expansion-panel>  
-</mat-accordion>
