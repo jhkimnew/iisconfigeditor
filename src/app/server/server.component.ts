@@ -10,6 +10,9 @@ export class ServerComponent implements OnInit {
   configActive = false;
   features = [];
 
+  selectionChanged = true;
+  openedChangeStarted = false;
+
   constructor(private data: DataService) { }
 
   ngOnInit() {
@@ -27,7 +30,23 @@ export class ServerComponent implements OnInit {
       });
   }
 
-  reset() {
+  onOpenedChange() {
+    if (this.selectionChanged) {
+      this.selectionChanged = false;
+      return;
+    }
+    if (this.openedChangeStarted) {
+      this.openedChangeStarted = false;
+      setTimeout(() => this.configActive = false, 0);
+      setTimeout(() => this.configActive = true, 0);
+    } else {
+      this.openedChangeStarted = true;
+    }
+  }
+
+  onSelectionChange() {
+    this.selectionChanged = true;
+    console.log('reset');
     setTimeout(() => this.configActive = false, 0);
     setTimeout(() => this.configActive = true, 0);
   }
