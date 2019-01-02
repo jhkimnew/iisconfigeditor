@@ -14,6 +14,13 @@
     </mat-expansion-panel-header>
     <mat-form-field>
       <input matInput placeholder="{{ property.value }}">
+      <div>
+        <mat-list *ngIf="property.childProperites">
+          <mat-list-item *ngFor="let childProperty of property.childProperites">
+            {{ childProperty.name + ":" + childProperty.value }}
+          </mat-list-item>
+        </mat-list>
+      </div>
     </mat-form-field>
   </mat-expansion-panel>  
 </mat-accordion>

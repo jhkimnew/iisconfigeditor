@@ -100,6 +100,7 @@ export class ConfigurationComponent implements OnInit {
 
   getChildProperties(parent: string, items: Object) {
     let found = false;
+    const childProperties = [];
     for (const item in items) {
       if (items.hasOwnProperty(item)) {
         const value = items[item];
@@ -117,12 +118,18 @@ export class ConfigurationComponent implements OnInit {
         }
         found = true;
 
-        this.properties.push({
-          'name': parent + '.' + item,
+        childProperties.push({
+          'name': item,
           'value': items[item]
         });
       }
     }
+
+    this.properties.push({
+      'name': parent,
+      'value': '...',
+      'childProperites': childProperties
+    });
   }
 
   onClickItem(item) {
