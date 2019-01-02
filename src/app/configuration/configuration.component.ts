@@ -86,7 +86,7 @@ export class ConfigurationComponent implements OnInit {
         const name = (links[key].name) ? links[key].name : links[key].id;
         const href = links[key]._links['self'].href;
         this.items.push({
-          'name': parent + '.' + name,
+          'name': name,
           'href': href
         });
       }
@@ -125,11 +125,13 @@ export class ConfigurationComponent implements OnInit {
       }
     }
 
-    this.properties.push({
-      'name': parent,
-      'value': '...',
-      'childProperites': childProperties
-    });
+    if (found) {
+      this.properties.push({
+        'name': parent,
+        'value': '...',
+        'childProperites': childProperties
+      });
+    }
   }
 
   onClickItem(item) {
