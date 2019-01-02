@@ -13,6 +13,10 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatTreeModule } from '@angular/material/tree';
+import { MatListModule } from '@angular/material/list';
+import { MatDividerModule } from '@angular/material/divider';
+import { MatCardModule } from '@angular/material/card';
+import { MatExpansionModule } from '@angular/material/expansion';
 
 @NgModule({
   exports: [
@@ -29,7 +33,11 @@ import { MatTreeModule } from '@angular/material/tree';
     MatTooltipModule,
     MatTabsModule,
     MatDialogModule,
-    MatTreeModule
+    MatTreeModule,
+    MatListModule,
+    MatDividerModule,
+    MatCardModule,
+    MatExpansionModule
   ]
 })
 export class MatComponentsModule { }

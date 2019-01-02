@@ -1,0 +1,19 @@
+<h4 *ngIf="selectedItem">{{ breadCrumb }}</h4>
+<mat-list *ngIf="items">
+  <mat-list-item *ngFor="let item of items">
+    {{ item.name }}
+    <button (click)="onClickItem(item)" mat-button><mat-icon>arrow_forward_ios</mat-icon></button>
+  </mat-list-item>
+</mat-list>
+
+<mat-accordion *ngIf="properties">
+  <mat-expansion-panel *ngFor="let property of properties">
+    <mat-expansion-panel-header>
+      <mat-panel-title>{{ property.name }}</mat-panel-title>
+      <mat-panel-description *ngIf="property.value">{{ property.value }}</mat-panel-description>
+    </mat-expansion-panel-header>
+    <mat-form-field>
+      <input matInput placeholder="{{ property.value }}">
+    </mat-form-field>
+  </mat-expansion-panel>  
+</mat-accordion>

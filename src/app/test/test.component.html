@@ -69,7 +69,7 @@
 <button color="accent" mat-raised-button>Accept</button>
 <button color="warn" mat-raised-button>Warn</button>
 <button color="primary" mat-fab><mat-icon>check</mat-icon></button>
-
+<!-- https://material.io/tools/icons/?icon=chevron_right&style=baseline  -->
 <h4>Basic mat-chip</h4>
 <mat-chip-list>
   <mat-chip color="accent" selected="true">One</mat-chip>
@@ -115,3 +115,58 @@
   md-raised-button
   >Open Dialog</button>
 
+<h4>Basic mat-accordion</h4>
+<mat-accordion>
+  <mat-expansion-panel>
+    <mat-expansion-panel-header>
+      <mat-panel-title>Foo</mat-panel-title>
+      <mat-panel-description>Bar</mat-panel-description>
+    </mat-expansion-panel-header>
+    <mat-form-field>
+      <input matInput placeholder="Bar">
+    </mat-form-field>
+  </mat-expansion-panel>
+  <mat-expansion-panel>
+    <mat-expansion-panel-header>
+      <mat-panel-title>Foo2</mat-panel-title>
+      <mat-panel-description>Bar2</mat-panel-description>
+    </mat-expansion-panel-header>
+    <mat-form-field>
+      <input matInput placeholder="Bar2">
+    </mat-form-field>
+  </mat-expansion-panel>
+</mat-accordion>
+
+<h4>Basic mat-accordion 2</h4>
+<mat-accordion>
+  <mat-expansion-panel>
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        Personal data
+      </mat-panel-title>
+      <mat-panel-description>
+        Type your name and age
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+
+    <mat-form-field>
+      <input matInput placeholder="First name">
+    </mat-form-field>
+
+    <mat-form-field>
+      <input matInput placeholder="Age">
+    </mat-form-field>
+  </mat-expansion-panel>
+  <mat-expansion-panel (opened)="panelOpenState = true"
+                        (closed)="panelOpenState = false">
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        Self aware panel
+      </mat-panel-title>
+      <mat-panel-description>
+        Currently I am {{panelOpenState ? 'open' : 'closed'}}
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+    <p>I'm visible because I am open</p>
+  </mat-expansion-panel>
+</mat-accordion>

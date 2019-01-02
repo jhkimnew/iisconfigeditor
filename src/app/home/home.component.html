@@ -1,11 +1,17 @@
 <p>
   IIS Configuration Editor
+  <button
+    *ngIf="!data.tokenInitialized"
+    (click)="openLogInDialog()"
+    mat-raised-button
+    color="primary"
+    >Sign in</button>
+
+  <button
+    *ngIf="data.tokenInitialized"
+    (click)="data.logout()"
+    mat-raised-button
+    color="primary"
+  >Sing out</button>
 </p>
-
-<button
-  [hidden]="tokenInitialized"
-  (click)="openDialog()"
-  md-raised-button
-  >Open Dialog</button>
-
-<app-tabview [hidden]="!tokenInitialized"></app-tabview>
+<app-tabview *ngIf="data.tokenInitialized"></app-tabview>

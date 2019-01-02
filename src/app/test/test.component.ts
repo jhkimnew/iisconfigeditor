@@ -40,6 +40,8 @@ export class TestComponent implements OnInit {
 
   isLoading = false;
 
+  panelOpenState = false;
+
   constructor(private dialog: MatDialog) {
   }
 

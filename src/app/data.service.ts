@@ -1,12 +1,69 @@
-import { Injectable } from '@angular/core';
+import { Injectable, OnInit } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
 })
-export class DataService {
+export class DataService implements OnInit {
+  feature;
 
-  constructor(private client: HttpClient) { }
+  constructor(private client: HttpClient) {}
+
+  ngOnInit() {
+    this.testToken(this.token)
+      .subscribe(
+        r => {
+          console.log('using exisint token', r);
+        },
+        e => {
+          console.log('existing token is invalid', e);
+          localStorage.clear();
+        });
+  }
+
+  get token() {
+    return localStorage.getItem('token');
+  }
+
+  set token(value: string) {
+    this.testToken(value)
+      .subscribe(
+        r => {
+          console.log(r);
+          localStorage.setItem('token', value);
+        },
+        e => {
+          console.log(e);
+          localStorage.clear();
+        });
+  }
+
+  logout() {
+    localStorage.clear();
+  }
+
+  get tokenInitialized() {
+    return this.token;
+  }
+
+  testToken(value: string) {
+    return this.client.get('https://localhost:55539/api', {
+      withCredentials: true,
+      headers: new HttpHeaders({
+        'Access-Token': 'Bearer ' + value,
+      }),
+    });
+  }
+
+  get(url: string) {
+    return this.client.get('https://localhost:55539' + url, {
+      withCredentials: true,
+      headers: new HttpHeaders({
+        'Access-Token': 'Bearer ' + this.token,
+        'Accept': 'application/hal+json'
+      }),
+    });
+  }
 
   test() {
     this.client.get('https://localhost:55539/security/api-keys', {

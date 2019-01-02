@@ -14,10 +14,9 @@ import { MatComponentsModule } from './common/mat-components.module';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { HomeComponent } from './home/home.component';
 import { TabViewComponent } from './tabview/tabview.component';
-import { SitesComponent } from './sites/sites.component';
-import { ApplicationsComponent } from './applications/applications.component';
-import { VirtualDirectoriesComponent } from './virtual-directories/virtual-directories.component';
 import { TokenDialogComponent } from './token-dialog/token-dialog.component';
+import { ServerComponent } from './server/server.component';
+import { ConfigurationComponent } from './configuration/configuration.component';
 
 @NgModule({
   declarations: [
@@ -27,10 +26,9 @@ import { TokenDialogComponent } from './token-dialog/token-dialog.component';
     NotFoundComponent,
     HomeComponent,
     TabViewComponent,
-    SitesComponent,
-    ApplicationsComponent,
-    VirtualDirectoriesComponent,
-    TokenDialogComponent
+    TokenDialogComponent,
+    ServerComponent,
+    ConfigurationComponent
   ],
   entryComponents: [
     TestMatDialogComponent,

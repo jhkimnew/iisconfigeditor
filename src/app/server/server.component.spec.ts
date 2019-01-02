@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { VirtualDirectoriesComponent } from './virtual-directories.component';
+import { ServerComponent } from './server.component';
 
-describe('VirtualDirectoriesComponent', () => {
-  let component: VirtualDirectoriesComponent;
-  let fixture: ComponentFixture<VirtualDirectoriesComponent>;
+describe('ServerComponent', () => {
+  let component: ServerComponent;
+  let fixture: ComponentFixture<ServerComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ VirtualDirectoriesComponent ]
+      declarations: [ ServerComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(VirtualDirectoriesComponent);
+    fixture = TestBed.createComponent(ServerComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
