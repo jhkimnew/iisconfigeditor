@@ -1,6 +1,6 @@
 <h4>Server</h4>
 <mat-form-field>
-  <mat-select (openedChange)="onOpenedChange()" [(ngModel)]="data.feature" placeholder="Features">
+  <mat-select (openedChange)="onOpenedChange()" (selectionChange)="onSelectionChange()" [(ngModel)]="data.feature" placeholder="Features">
     <mat-option *ngFor="let feature of features" [value]="feature">
       {{feature.name}}
     </mat-option>

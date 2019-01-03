@@ -11,6 +11,7 @@ export class ServerComponent implements OnInit {
   features = [];
 
   onOpenedChangeStarted = false;
+  resetAlreadyDone = false;
 
   constructor(private data: DataService) { }
 
@@ -32,10 +33,22 @@ export class ServerComponent implements OnInit {
   onOpenedChange() {
     if (this.onOpenedChangeStarted) {
       this.onOpenedChangeStarted = false;
+      if (!this.resetAlreadyDone) {
+        this.reset();
+      }
+      this.resetAlreadyDone = false;
     } else {
       this.onOpenedChangeStarted = true;
-      setTimeout(() => this.configActive = false, 0);
-      setTimeout(() => this.configActive = true, 0);
     }
+  }
+
+  onSelectionChange() {
+    this.resetAlreadyDone = true;
+    this.reset();
+  }
+
+  reset() {
+    setTimeout(() => this.configActive = false, 0);
+    setTimeout(() => this.configActive = true, 0);
   }
 }

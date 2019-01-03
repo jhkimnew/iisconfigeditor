@@ -10,12 +10,14 @@ export class ConfigurationComponent implements OnInit {
   items = [];
   properties = [];
   selectedItem: any;
-  breadCrumb: string;
+  breadCrumb = [];
+  breadCrumbCounter: number;
 
   constructor(private data: DataService) { }
 
   ngOnInit() {
-    this.breadCrumb = '';
+    this.breadCrumb = [];
+    this.breadCrumbCounter = 0;
     this.initialize(this.data.feature.href);
   }
 
@@ -84,12 +86,25 @@ export class ConfigurationComponent implements OnInit {
     for (const key in links) {
       if (links.hasOwnProperty(key)) {
         found = true;
-        const name = (links[key].name) ? links[key].name : links[key].id;
-        if (name && links[key]._links.hasOwnProperty('self')) {
+
+        // name of collection is the value of name or path property
+        let name = '';
+        if (links[key].name) {
+          name = links[key].name;
+        }
+        if (name === '' && links[key].path) {
+          name = links[key].path;
+        }
+        if (name === '') {
+          name = links[key].id;
+        }
+
+        if (name && links[key]._links && links[key]._links.hasOwnProperty('self')) {
           // get collection
           const href = links[key]._links['self'].href;
           this.items.push({
             'name': name,
+            'id': links[key].id,
             'href': href
           });
         } else {
@@ -143,9 +158,20 @@ export class ConfigurationComponent implements OnInit {
 
   onClickItem(item) {
     this.selectedItem = item;
-    this.breadCrumb += '/' + item.name;
+    if (item.index >= 0) {
+      this.breadCrumb.splice(item.index + 1, this.breadCrumb.length - item.index - 1);
+    } else {
+      this.breadCrumb.push({index: this.breadCrumbCounter++, name: item.name, href: item.href});
+    }
     this.items = [];
     this.properties = [];
     this.initialize(item.href);
+  }
+
+  onClickBreadcrumb(item) {
+    if (this.breadCrumb.length === item.index + 1) {
+      return;
+    }
+    this.onClickItem(item);
   }
 }

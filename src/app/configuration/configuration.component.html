@@ -1,6 +1,9 @@
-<h4 *ngIf="selectedItem">{{ breadCrumb }}</h4>
-
-<mat-accordion *ngIf="properties">
+<h4 *ngIf="selectedItem">
+  <button (click)="onClickBreadcrumb(item)" mat-button color="accent" *ngFor="let item of breadCrumb">
+    {{item.name}}
+  </button>
+</h4>
+<mat-accordion *ngIf="properties" class="my-headers-align">
   <mat-expansion-panel *ngFor="let property of properties">
     <mat-expansion-panel-header>
       <mat-panel-title>{{ property.name }}</mat-panel-title>
@@ -27,7 +30,7 @@
 
 <mat-list *ngIf="items">
   <mat-list-item *ngFor="let item of items">
-    {{ item.name }}
-    <button (click)="onClickItem(item)" mat-button><mat-icon>arrow_forward_ios</mat-icon></button>
+    <button (click)="onClickItem(item)" mat-mini-fab><mat-icon>arrow_forward_ios</mat-icon></button>
+    <span (click)="onClickItem(item)" class="buttonLabel">{{ item.name}}</span>
   </mat-list-item>
 </mat-list>
