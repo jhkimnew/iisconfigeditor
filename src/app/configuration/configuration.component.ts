@@ -87,7 +87,9 @@ export class ConfigurationComponent implements OnInit {
       if (links.hasOwnProperty(key)) {
         found = true;
 
-        // name of collection is the value of name or path property
+        // get name with meaningful property value
+
+        // for server
         let name = '';
         if (links[key].name) {
           name = links[key].name;
@@ -95,6 +97,20 @@ export class ConfigurationComponent implements OnInit {
         if (name === '' && links[key].path) {
           name = links[key].path;
         }
+        if (name === '' && links[key].file_extension) {
+          name = links[key].file_extension;
+        }
+
+        // for certificates
+        if (name === '' && links[key].thumbprint) {
+          name = links[key].thumbprint;
+        }
+
+        // for access token
+        if (name === '' && links[key].purpose) {
+          name = links[key].purpose + '(' + links[key].id + ')';
+        }
+
         if (name === '') {
           name = links[key].id;
         }
@@ -164,7 +180,7 @@ export class ConfigurationComponent implements OnInit {
 
     if (item.index !== undefined && this.breadCrumb.length > 1) {
       if ((item.index + 1) < this.breadCrumb.length ) {
-        this.breadCrumb.splice((item.index + 1), this.breadCrumb.length - (item.index - 1));
+        this.breadCrumb.splice((item.index + 1), this.breadCrumb.length - item.index - 1);
       }
     }
 
