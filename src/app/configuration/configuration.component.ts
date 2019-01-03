@@ -158,20 +158,22 @@ export class ConfigurationComponent implements OnInit {
 
   onClickItem(item) {
     this.selectedItem = item;
-    if (item.index >= 0) {
-      this.breadCrumb.splice(item.index + 1, this.breadCrumb.length - item.index - 1);
-    } else {
+    if (item.index === undefined) {
       this.breadCrumb.push({index: this.breadCrumbCounter++, name: item.name, href: item.href});
     }
+
+    if (item.index !== undefined && this.breadCrumb.length > 1) {
+      if ((item.index + 1) < this.breadCrumb.length ) {
+        this.breadCrumb.splice((item.index + 1), this.breadCrumb.length - (item.index - 1));
+      }
+    }
+
     this.items = [];
     this.properties = [];
     this.initialize(item.href);
   }
 
   onClickBreadcrumb(item) {
-    if (this.breadCrumb.length === item.index + 1) {
-      return;
-    }
     this.onClickItem(item);
   }
 }
