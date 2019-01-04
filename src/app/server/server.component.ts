@@ -16,7 +16,7 @@ export class ServerComponent implements OnInit {
   constructor(private data: DataService) { }
 
   ngOnInit() {
-    this.data.get('/api/webserver')
+    this.data.get('/api')
       .subscribe(r => {
         const links = r['_links'];
         for (const key in links) {
@@ -26,6 +26,7 @@ export class ServerComponent implements OnInit {
           }
         }
       }, e => {
+        this.data.logout();
         console.log(e);
       });
   }

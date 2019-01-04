@@ -17,6 +17,7 @@ import { TabViewComponent } from './tabview/tabview.component';
 import { TokenDialogComponent } from './token-dialog/token-dialog.component';
 import { ServerComponent } from './server/server.component';
 import { ConfigurationComponent } from './configuration/configuration.component';
+import { PowershellScriptComponent } from './powershell-script/powershell-script.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { ConfigurationComponent } from './configuration/configuration.component'
     TabViewComponent,
     TokenDialogComponent,
     ServerComponent,
-    ConfigurationComponent
+    ConfigurationComponent,
+    PowershellScriptComponent
   ],
   entryComponents: [
     TestMatDialogComponent,

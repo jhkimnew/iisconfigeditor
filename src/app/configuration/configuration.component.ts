@@ -25,6 +25,10 @@ export class ConfigurationComponent implements OnInit {
     this.data.get(url)
       .subscribe(r => {
         this.getProperties(r);
+
+        // set powershell script
+        this.data.powershellScript = url;
+
       }, e => {
         console.log(e);
       });
@@ -123,6 +127,15 @@ export class ConfigurationComponent implements OnInit {
         if (link === 'self') {
           continue;
         }
+        if (link === 'copy') {
+          continue;
+        }
+        if (link === 'move') {
+          continue;
+        }
+        if (link === 'downloads') {
+          continue;
+        }
         this.items.push({
           'name': link,
           'href': links[link].href
@@ -157,7 +170,7 @@ export class ConfigurationComponent implements OnInit {
 
         // for certificates
         if (name === '' && links[key].thumbprint) {
-          name = links[key].thumbprint;
+          name = links[key].thumbprint + ( (links[key].subject !== '') ? ', ' + links[key].subject : '');
         }
 
         // for access token
@@ -179,7 +192,7 @@ export class ConfigurationComponent implements OnInit {
           });
         } else {
           // get collection properties
-          this.getChildProperties(parent + '[' + key + ']', links[key]);
+          this.getChildProperties(parent + ' ' + '[' + key + ']', links[key]);
         }
       }
     }

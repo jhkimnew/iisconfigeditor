@@ -6,6 +6,8 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 })
 export class DataService implements OnInit {
   feature;
+  powershellScript;
+  uri = 'https://localhost:55539';
 
   constructor(private client: HttpClient) {}
 
