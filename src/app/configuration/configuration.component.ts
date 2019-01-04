@@ -50,6 +50,11 @@ export class ConfigurationComponent implements OnInit {
         if (item === 'id' ) {
           continue;
         }
+        if (this.isStringArray(value)) {
+           const parent = item;
+           this.getStringArray(parent, value);
+           continue;
+        }
         if (this.isArray(value)) {
           this.getCollection(item, value);
           continue;
@@ -65,6 +70,30 @@ export class ConfigurationComponent implements OnInit {
         });
       }
     }
+  }
+
+  isArray(what) {
+    return Object.prototype.toString.call(what) === '[object Array]';
+  }
+
+  checkJSON(m) {
+    if (typeof m === 'object') {
+       try { m = JSON.stringify(m); } catch (err) { return false; }
+    }
+    if (typeof m === 'string') {
+       try { m = JSON.parse(m); } catch (err) { return false; }
+    }
+    if (typeof m !== 'object') { return false; }
+    return true;
+  }
+
+  isStringArray(what) {
+    if (this.isArray(what) && what.length > 0) {
+      if (!this.checkJSON(what[0])) {
+        return true;
+      }
+    }
+    return false;
   }
 
   getLinks(links: Object) {
@@ -83,11 +112,12 @@ export class ConfigurationComponent implements OnInit {
 
   getCollection(parent: string, links) {
     let found = false;
+
     for (const key in links) {
       if (links.hasOwnProperty(key)) {
         found = true;
 
-        // get name with meaningful property value
+        // set name with a meaningful value among from the existing property values
 
         // for server
         let name = '';
@@ -97,8 +127,11 @@ export class ConfigurationComponent implements OnInit {
         if (name === '' && links[key].path) {
           name = links[key].path;
         }
-        if (name === '' && links[key].file_extension) {
+        if (name === '' && links[key].file_extension) {   // mime type
           name = links[key].file_extension;
+        }
+        if (name === '' && links[key].users) {            // authorization\rules
+          name = links[key].users;
         }
 
         // for certificates
@@ -132,8 +165,23 @@ export class ConfigurationComponent implements OnInit {
     return found;
   }
 
-  isArray(what) {
-    return Object.prototype.toString.call(what) === '[object Array]';
+  getStringArray(parent: string, items: Object) {
+    const childProperties = [];
+    for (const item in items) {
+      if (items.hasOwnProperty(item)) {
+        const value = items[item];
+        childProperties.push({
+          'name': item,
+          'value': value,
+          'type': 'stringArray'
+        });
+      }
+    }
+    this.properties.push({
+      'name': parent,
+      'value': '...',
+      'childProperites': childProperties
+    });
   }
 
   getChildProperties(parent: string, items: Object) {
