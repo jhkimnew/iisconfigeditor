@@ -30,7 +30,28 @@ export class ConfigurationComponent implements OnInit {
       });
   }
 
-  getProperties(items: Object) {
+  onClickItem(item) {
+    this.selectedItem = item;
+    if (item.index === undefined) {
+      this.breadCrumb.push({index: this.breadCrumbCounter++, name: item.name, href: item.href});
+    }
+
+    if (item.index !== undefined && this.breadCrumb.length > 1) {
+      if ((item.index + 1) < this.breadCrumb.length ) {
+        this.breadCrumb.splice((item.index + 1), this.breadCrumb.length - item.index - 1);
+      }
+    }
+
+    this.items = [];
+    this.properties = [];
+    this.initialize(item.href);
+  }
+
+  onClickBreadcrumb(item) {
+    this.onClickItem(item);
+  }
+
+  private getProperties(items: Object) {
     for (const item in items) {
       if (items.hasOwnProperty(item)) {
         if (item === '_links') {
@@ -72,11 +93,7 @@ export class ConfigurationComponent implements OnInit {
     }
   }
 
-  isArray(what) {
-    return Object.prototype.toString.call(what) === '[object Array]';
-  }
-
-  checkJSON(m) {
+  private checkJSON(m) {
     if (typeof m === 'object') {
        try { m = JSON.stringify(m); } catch (err) { return false; }
     }
@@ -87,7 +104,11 @@ export class ConfigurationComponent implements OnInit {
     return true;
   }
 
-  isStringArray(what) {
+  private isArray(what) {
+    return Object.prototype.toString.call(what) === '[object Array]';
+  }
+
+  private isStringArray(what) {
     if (this.isArray(what) && what.length > 0) {
       if (!this.checkJSON(what[0])) {
         return true;
@@ -96,7 +117,7 @@ export class ConfigurationComponent implements OnInit {
     return false;
   }
 
-  getLinks(links: Object) {
+  private getLinks(links: Object) {
     for (const link in links) {
       if (links.hasOwnProperty(link)) {
         if (link === 'self') {
@@ -110,7 +131,7 @@ export class ConfigurationComponent implements OnInit {
     }
   }
 
-  getCollection(parent: string, links) {
+  private getCollection(parent: string, links) {
     let found = false;
 
     for (const key in links) {
@@ -165,7 +186,7 @@ export class ConfigurationComponent implements OnInit {
     return found;
   }
 
-  getStringArray(parent: string, items: Object) {
+  private getStringArray(parent: string, items: Object) {
     const childProperties = [];
     for (const item in items) {
       if (items.hasOwnProperty(item)) {
@@ -184,7 +205,7 @@ export class ConfigurationComponent implements OnInit {
     });
   }
 
-  getChildProperties(parent: string, items: Object) {
+  private getChildProperties(parent: string, items: Object) {
     let found = false;
     const childProperties = [];
     for (const item in items) {
@@ -218,26 +239,5 @@ export class ConfigurationComponent implements OnInit {
         'childProperites': childProperties
       });
     }
-  }
-
-  onClickItem(item) {
-    this.selectedItem = item;
-    if (item.index === undefined) {
-      this.breadCrumb.push({index: this.breadCrumbCounter++, name: item.name, href: item.href});
-    }
-
-    if (item.index !== undefined && this.breadCrumb.length > 1) {
-      if ((item.index + 1) < this.breadCrumb.length ) {
-        this.breadCrumb.splice((item.index + 1), this.breadCrumb.length - item.index - 1);
-      }
-    }
-
-    this.items = [];
-    this.properties = [];
-    this.initialize(item.href);
-  }
-
-  onClickBreadcrumb(item) {
-    this.onClickItem(item);
   }
 }
