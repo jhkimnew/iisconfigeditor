@@ -56,6 +56,7 @@ export class DataService implements OnInit {
   }
 
   get(url: string) {
+    // HAL Spec.: https://docs.microsoft.com/en-us/iis-administration/api/hal
     return this.client.get('https://localhost:55539' + url, {
       withCredentials: true,
       headers: new HttpHeaders({
