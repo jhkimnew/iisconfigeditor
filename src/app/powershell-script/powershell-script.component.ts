@@ -16,10 +16,10 @@ export class PowershellScriptComponent implements OnInit {
   get content() {
     const $url = (this.data.powershellScript === undefined) ? '/api' : this.data.powershellScript;
     return `
-    # initialize token
+    # Initialize token (Warning! Do not share your token key used here!)
     $headers = @{"Access-Token"=("Bearer " + "${this.data.token}"); "Accept"="application/hal+json"}
 
-    # call IISAdministration API
+    # Call IISAdministration API
     $response = invoke-webrequest ${this.data.uri}${$url} -UseBasicParsing -UseDefaultCredentials -ContentType "application/json" -Headers $headers;
 
     # Convert the content in byte array to UTF string
