@@ -28,6 +28,7 @@ export class PowershellScriptComponent implements OnInit {
     # Clear screen and display rrettified Json object
     clear-host
     $content | ConvertFrom-JSON | ConvertTo-JSON
+
 `;
   }
 }
