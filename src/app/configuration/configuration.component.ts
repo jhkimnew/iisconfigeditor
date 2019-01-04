@@ -38,11 +38,10 @@ export class ConfigurationComponent implements OnInit {
     this.selectedItem = item;
     if (item.index === undefined) {
       this.breadCrumb.push({index: this.breadCrumbCounter++, name: item.name, href: item.href});
-    }
-
-    if (item.index !== undefined && this.breadCrumb.length > 1) {
+    } else {
       if ((item.index + 1) < this.breadCrumb.length ) {
         this.breadCrumb.splice((item.index + 1), this.breadCrumb.length - item.index - 1);
+        this.breadCrumbCounter = this.breadCrumb.length;
       }
     }
 
