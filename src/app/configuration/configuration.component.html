@@ -11,7 +11,7 @@
       <mat-panel-description>{{ property.value }}</mat-panel-description>
     </mat-expansion-panel-header>
     <mat-form-field *ngIf="property.value !== '...'">
-      <input matInput placeholder="{{ property.value }}">
+      <input matInput #txtValue (keydown.enter)="onChangeValue(property, txtValue.value)" placeholder="{{ property.value }}">
     </mat-form-field>
     <p>
       <mat-accordion *ngIf="property.childProperites">
@@ -21,7 +21,7 @@
               <mat-panel-description>{{ childProperty.value }}</mat-panel-description>
             </mat-expansion-panel-header>
             <mat-form-field>
-              <input matInput placeholder="{{ childProperty.value }}">
+              <input matInput name="updatedInputValue" id="updatedInputValue" [(ngModel)]="updatedInputValue" placeholder="{{ childProperty.value }}">
             </mat-form-field>
         </mat-expansion-panel>
       </mat-accordion>

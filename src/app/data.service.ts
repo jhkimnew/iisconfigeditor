@@ -8,6 +8,7 @@ export class DataService implements OnInit {
   feature;
   powershellScript;
   uri = 'https://localhost:55539';
+  patchedProperty;
 
   constructor(private client: HttpClient) {}
 
@@ -57,6 +58,10 @@ export class DataService implements OnInit {
     });
   }
 
+  initialize() {
+    this.patchedProperty = null;
+  }
+
   get(url: string) {
     // HAL Spec.: https://docs.microsoft.com/en-us/iis-administration/api/hal
     return this.client.get('https://localhost:55539' + url, {
@@ -64,6 +69,19 @@ export class DataService implements OnInit {
       headers: new HttpHeaders({
         'Access-Token': 'Bearer ' + this.token,
         'Accept': 'application/hal+json'
+      }),
+    });
+  }
+
+  patch(url: string, propertyName: string, propertyValue: string) {
+    console.log(propertyName, propertyValue);
+    const body = { [propertyName]: propertyValue };
+    return this.client.patch('https://localhost:55539' + url, JSON.stringify(body), {
+      withCredentials: true,
+      headers: new HttpHeaders({
+        'Access-Token': 'Bearer ' + this.token,
+        'Accept': 'application/hal+json',
+        'Content-Type': 'application/json'
       }),
     });
   }

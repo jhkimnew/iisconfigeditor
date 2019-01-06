@@ -12,6 +12,7 @@ export class ConfigurationComponent implements OnInit {
   selectedItem: any;
   breadCrumb = [];
   breadCrumbCounter: number;
+  updatedInputValue = '';
 
   constructor(private data: DataService) { }
 
@@ -19,9 +20,11 @@ export class ConfigurationComponent implements OnInit {
     this.breadCrumb = [];
     this.breadCrumbCounter = 0;
     this.initialize(this.data.feature.href);
+    this.data.initialize();
   }
 
   initialize(url: string) {
+    this.data.initialize();
     this.data.get(url)
       .subscribe(r => {
         this.getProperties(r);
@@ -52,6 +55,18 @@ export class ConfigurationComponent implements OnInit {
 
   onClickBreadcrumb(item) {
     this.onClickItem(item);
+  }
+
+  onChangeValue(property, newValue) {
+    const oldValue = property.value;
+    property.value = newValue;
+    console.log(property.name, newValue);
+    this.data.patch(this.selectedItem.href, property.name, newValue)
+      .subscribe(r => {
+        this.data.patchedProperty = property;
+      }, e => {
+        property.value = oldValue;
+      });
   }
 
   private getProperties(items: Object) {
