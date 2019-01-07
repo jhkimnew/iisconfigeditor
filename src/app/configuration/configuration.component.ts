@@ -265,12 +265,11 @@ export class ConfigurationComponent implements OnInit {
       }
     }
 
-    
     if (found) {
       this.properties.push({
         'name': propertyGroupName,
         'value': '...',
-        'collectionName': collectionName
+        'collectionName': collectionName,
         'childProperites': childProperties
       });
     }
