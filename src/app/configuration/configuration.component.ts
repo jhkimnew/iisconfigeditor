@@ -100,7 +100,7 @@ export class ConfigurationComponent implements OnInit {
         }
         if (typeof value === 'object') {
           const parent = item;
-          this.getChildProperties(parent, value);
+          this.getChildProperties(null, parent, value);
           continue;
         }
         this.properties.push({
@@ -206,7 +206,7 @@ export class ConfigurationComponent implements OnInit {
           });
         } else {
           // get collection properties
-          this.getChildProperties(parent + ' ' + '[' + key + ']', links[key]);
+          this.getChildProperties(key, parent, links[key]);
         }
       }
     }
@@ -232,7 +232,13 @@ export class ConfigurationComponent implements OnInit {
     });
   }
 
-  private getChildProperties(parent: string, items: Object) {
+  private getChildProperties(collectionKey: string, parent: string, items: Object) {
+    let propertyGroupName = parent;
+    let collectionName = null;
+    if (collectionKey !== null) {
+      propertyGroupName = parent + ' ' + '[' + collectionKey + ']';
+      collectionName = parent;
+    }
     let found = false;
     const childProperties = [];
     for (const item in items) {
@@ -259,10 +265,12 @@ export class ConfigurationComponent implements OnInit {
       }
     }
 
+    
     if (found) {
       this.properties.push({
-        'name': parent,
+        'name': propertyGroupName,
         'value': '...',
+        'collectionName': collectionName
         'childProperites': childProperties
       });
     }
