@@ -15,14 +15,15 @@
     </mat-form-field>
     <p>
       <mat-accordion *ngIf="property.childProperites">
+        <span *ngIf="property.collectionName">{{ property.collectionName + ' collection' }}</span>
         <mat-expansion-panel *ngFor="let childProperty of property.childProperites">
-            <mat-expansion-panel-header>
-              <mat-panel-title>{{ childProperty.name }}</mat-panel-title>
-              <mat-panel-description>{{ childProperty.value }}</mat-panel-description>
-            </mat-expansion-panel-header>
-            <mat-form-field>
-              <input matInput placeholder="{{ childProperty.value }}">
-            </mat-form-field>
+          <mat-expansion-panel-header>
+            <mat-panel-title>{{ childProperty.name }}</mat-panel-title>
+            <mat-panel-description>{{ childProperty.value }}</mat-panel-description>
+          </mat-expansion-panel-header>
+          <mat-form-field>
+            <input matInput placeholder="{{ childProperty.value }}">
+          </mat-form-field>
         </mat-expansion-panel>
       </mat-accordion>
     </p>
